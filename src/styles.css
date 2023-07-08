@@ -1,0 +1,46 @@
+h1 {
+color rgb:(189, 193, 198);
+display: inline; 
+font-family Roboto,
+  arial,
+  sans-serif 
+  font-size: 14px; 
+  font-weight: 700; 
+  height: auto; 
+  line-height: 22px; 
+  white-space: nowrap; 
+  width: auto;
+}
+ul {
+margin: 0 0 10px;
+padding: 0;
+}
+li {
+  color rgb(154, 160, 166);
+  display block; 
+  font-family Roboto,
+    arial,
+    sans-serif; 
+    font-size 12px; 
+    font-weight 400; 
+    height 16px; 
+    line-height 16px; 
+    width 96.7344px;
+    list-style-type: none;
+}
+
+#temperature {
+  font-size: 64px;
+}
+.units {
+  position: relative;
+  top: -34px;
+}
+
+.container {
+  border: 1px solid grey;
+  padding: 15px;
+  margin: 20px auto;
+  max-width: 600px;
+  border-radius: 10px;
+}
