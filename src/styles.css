@@ -44,3 +44,7 @@ li {
   max-width: 600px;
   border-radius: 10px;
 }
+.git-link {
+  display: block;
+  text-align: center;
+}
