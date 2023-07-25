@@ -20,3 +20,16 @@ let days = [
 let dayName = days[currentTime.getDay()];
 let today = document.querySelector("#today");
 today.innerHTML = `${dayName} ${hour}:${minutes}`;
+
+function searchCity(event) {
+event.preventDefault();
+  let searchInput=document.querySelector("#searchInput");
+  let h1 = document.querySelector("h1");
+  h1.innerHTML = `${searchInput.value}`;
+  let city =searchInput.value;
+  let apiKey = "0ocfta5c0e4602a2a90c32a9a4bbf5b9";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+console.log(apiUrl);
+}
+let searchForm = document.querySelector("form");
+searchForm.addEventListener("submit", searchCity);
