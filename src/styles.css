@@ -1,5 +1,6 @@
 h1 {
 color rgb:(189, 193, 198);
+margin-top: 10px;
 display: inline; 
 font-family Roboto,
   arial,
@@ -31,10 +32,17 @@ li {
 
 #temperature {
   font-size: 64px;
+  line-height: 1;
 }
 .units {
   position: relative;
   top: -34px;
+}
+
+.weather-temperature img {
+  margin-right: 10px;
+  height: 64px;
+  width: 64px;
 }
 
 .container {
@@ -48,3 +56,4 @@ li {
   display: block;
   text-align: center;
 }
+

@@ -33,3 +33,4 @@ console.log(apiUrl);
 }
 let searchForm = document.querySelector("form");
 searchForm.addEventListener("submit", searchCity);
+console.log(apiUrl);
