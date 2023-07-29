@@ -21,8 +21,10 @@ let dayName = days[currentTime.getDay()];
 let today = document.querySelector("#today");
 today.innerHTML = `${dayName} ${hour}:${minutes}`;
 
+
+
 function searchCity(event) {
-  event.preventDefault();
+event.preventDefault();
   let searchInput=document.querySelector("#searchInput");
   let h1 = document.querySelector("h1");
   h1.innerHTML = `${searchInput.value}`;
@@ -38,7 +40,12 @@ function searchCity(event) {
     windElement.innerHTML = Math.round(response.data.wind.speed);
     let descriptionElement = document.querySelector("#description");
     descriptionElement.innerHTML = response.data.condition.description;
+    let iconElement = document.querySelector("#icon");
+    iconElement.setAttribute("src", `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`)
   });
 }
+
 let searchForm = document.querySelector("form");
 searchForm.addEventListener("submit", searchCity);
+searchCity("Philadelphia");
+
