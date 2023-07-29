@@ -21,6 +21,7 @@ li {
   font-family Roboto,
     arial,
     sans-serif; 
+    text-transform: capitalize;
     font-size 12px; 
     font-weight 400; 
     height 16px; 

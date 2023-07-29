@@ -35,7 +35,9 @@ function searchCity(event) {
     let humidityElement = document.querySelector("#humid");
     humidityElement.innerHTML = response.data.temperature.humidity;
     let windElement = document.querySelector("#wind");
-    windElement.innerHTML = response.data.wind.speed;
+    windElement.innerHTML = Math.round(response.data.wind.speed);
+    let descriptionElement = document.querySelector("#description");
+    descriptionElement.innerHTML = response.data.condition.description;
   });
 }
 let searchForm = document.querySelector("form");
