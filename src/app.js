@@ -21,18 +21,39 @@ let dayName = days[currentTime.getDay()];
 let today = document.querySelector("#today");
 today.innerHTML = `${dayName} ${hour}:${minutes}`;
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class = "row">`;
+  let days = ["Thu", "Fri", "Sat",]
+  days.forEach(function(day){
+forecastHTML = forecastHTML + ` 
+                    <div class = "col-2">
+                      <div class="weather-forecast-date">
+                      ${day}
+                      </div>
+                      <img src = "https://ssl.gstatic.com/onebox/weather/64/cloudy.png"
+                      alt=""
+                      width="56" />
+                      <div class="weather-forecast-temperatures">
+                      <span class = "weather-forecast-max">18°</span>
+                      <span class = "weather-forecast-min">12°</span>
+                      </div>
+                    </div>`;
+  })
 
+                  forecastHTML = forecastHTML + `</div>`;
+                  forecastElement.innerHTML = forecastHTML;
+}
 
-function searchCity(event) {
-event.preventDefault();
+function searchCity(city) {
 
-  let searchInput=document.querySelector("#searchInput");
   let h1 = document.querySelector("h1");
-  h1.innerHTML = `${searchInput.value}`;
-  let city =searchInput.value;
+  h1.innerHTML = `${city}`;
+
   let apiKey = "0ocfta5c0e4602a2a90c32a9a4bbf5b9";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
   axios.get(apiUrl).then(function(response){
+    console.log(response.data)
     celsiusTemperature = Math.round(response.data.temperature.current);
     let temperatureElement = document.querySelector("#temperature");
     temperatureElement.innerHTML = Math.round(celsiusTemperature);
@@ -48,7 +69,14 @@ event.preventDefault();
 }
 
 let searchForm = document.querySelector("form");
-searchForm.addEventListener("submit", searchCity);
+searchForm.addEventListener("submit", handleSubmit);
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let searchInput=document.querySelector("#searchInput");
+  let city =searchInput.value;
+  searchCity(city)
+}
 
 function displayFahrenheit(event) {
   event.preventDefault();
@@ -72,6 +100,6 @@ let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click" , displayCelsius);
 
 searchCity("Philadelphia");
-
+displayForecast();
 
 
