@@ -21,7 +21,15 @@ let dayName = days[currentTime.getDay()];
 let today = document.querySelector("#today");
 today.innerHTML = `${dayName} ${hour}:${minutes}`;
 
-function displayForecast() {
+
+function getForecast(coordinates) {
+let apiKey = `0ocfta5c0e4602a2a90c32a9a4bbf5b9`
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&long=${coordinates.longitude}&key=${apiKey}&units=metric`
+axios.get(apiUrl).then(displayForecast);
+}
+
+function displayForecast(response) {
+  console.log(response);
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class = "row">`;
   let days = ["Thu", "Fri", "Sat",]
@@ -45,8 +53,9 @@ forecastHTML = forecastHTML + `
                   forecastElement.innerHTML = forecastHTML;
 }
 
-function searchCity(city) {
 
+
+function searchCity(city) {
   let h1 = document.querySelector("h1");
   h1.innerHTML = `${city}`;
 
