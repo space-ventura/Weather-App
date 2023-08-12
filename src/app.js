@@ -15,45 +15,45 @@ let days = [
   "Wednesday",
   "Thursday",
   "Friday",
-  "Saturday"
+  "Saturday",
 ];
 let dayName = days[currentTime.getDay()];
 let today = document.querySelector("#today");
 today.innerHTML = `${dayName} ${hour}:${minutes}`;
 
-
 function getForecast(coordinates) {
-let apiKey = `0ocfta5c0e4602a2a90c32a9a4bbf5b9`
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&long=${coordinates.longitude}&key=${apiKey}&units=metric`
-axios.get(apiUrl).then(displayForecast);
+  let apiKey = `0ocfta5c0e4602a2a90c32a9a4bbf5b9`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function displayForecast(response) {
-  console.log(response);
+  let forecast = response.data.daily;
+  console.log(response)
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class = "row">`;
-  let days = ["Thu", "Fri", "Sat",]
-  days.forEach(function(day){
-forecastHTML = forecastHTML + ` 
+
+  forecast.forEach(function (forecastDay) {
+    forecastHTML =
+      forecastHTML +
+      ` 
                     <div class = "col-2">
                       <div class="weather-forecast-date">
-                      ${day}
+                      ${forecastDay.time}
                       </div>
-                      <img src = "https://ssl.gstatic.com/onebox/weather/64/cloudy.png"
+                      <img src = "https://ssl.gstatic.com/onebox/weather/${forecastDay.daily[0].condition.icon_url}.png"
                       alt=""
                       width="56" />
                       <div class="weather-forecast-temperatures">
-                      <span class = "weather-forecast-max">18°</span>
-                      <span class = "weather-forecast-min">12°</span>
+                      <span class = "weather-forecast-max">${forecastDay.temperature.maximum}°</span>
+                      <span class = "weather-forecast-min">${forecastDay.temperature.minimum}°</span>
                       </div>
                     </div>`;
-  })
+  });
 
-                  forecastHTML = forecastHTML + `</div>`;
-                  forecastElement.innerHTML = forecastHTML;
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
 }
-
-
 
 function searchCity(city) {
   let h1 = document.querySelector("h1");
@@ -61,8 +61,8 @@ function searchCity(city) {
 
   let apiKey = "0ocfta5c0e4602a2a90c32a9a4bbf5b9";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
-  axios.get(apiUrl).then(function(response){
-    console.log(response.data)
+  axios.get(apiUrl).then(function (response) {
+    console.log(response.data);
     celsiusTemperature = Math.round(response.data.temperature.current);
     let temperatureElement = document.querySelector("#temperature");
     temperatureElement.innerHTML = Math.round(celsiusTemperature);
@@ -73,7 +73,11 @@ function searchCity(city) {
     let descriptionElement = document.querySelector("#description");
     descriptionElement.innerHTML = response.data.condition.description;
     let iconElement = document.querySelector("#icon");
-    iconElement.setAttribute("src", `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`)
+    iconElement.setAttribute(
+      "src",
+      `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
+    );
+    getForecast(response.data.coordinates);
   });
 }
 
@@ -82,14 +86,14 @@ searchForm.addEventListener("submit", handleSubmit);
 
 function handleSubmit(event) {
   event.preventDefault();
-  let searchInput=document.querySelector("#searchInput");
-  let city =searchInput.value;
-  searchCity(city)
+  let searchInput = document.querySelector("#searchInput");
+  let city = searchInput.value;
+  searchCity(city);
 }
 
 function displayFahrenheit(event) {
   event.preventDefault();
-  let fahrenheitTemperature = (celsiusTemperature * 9) /5 + 32;
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
@@ -103,12 +107,10 @@ function displayCelsius(event) {
 let celsiusTemperature = null;
 
 let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click" , displayFahrenheit);
+fahrenheitLink.addEventListener("click", displayFahrenheit);
 
 let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click" , displayCelsius);
+celsiusLink.addEventListener("click", displayCelsius);
 
 searchCity("Philadelphia");
 displayForecast();
-
-
