@@ -41,7 +41,7 @@ function displayForecast(response) {
                       <div class="weather-forecast-date">
                       ${forecastDay.time}
                       </div>
-                      <img src = "https://ssl.gstatic.com/onebox/weather/${forecastDay.daily[0].condition.icon_url}.png"
+                      <img src="${forecastDay.condition.icon_url}"
                       alt=""
                       width="56" />
                       <div class="weather-forecast-temperatures">
@@ -113,4 +113,3 @@ let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", displayCelsius);
 
 searchCity("Philadelphia");
-displayForecast();
