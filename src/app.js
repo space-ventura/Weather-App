@@ -23,7 +23,7 @@ today.innerHTML = `${dayName} ${hour}:${minutes}`;
 
 function getForecast(coordinates) {
   let apiKey = `0ocfta5c0e4602a2a90c32a9a4bbf5b9`;
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&key=${apiKey}&units=metric`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&key=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(displayForecast);
 }
 
@@ -69,7 +69,7 @@ function searchCity(city) {
   h1.innerHTML = `${city}`;
 
   let apiKey = "0ocfta5c0e4602a2a90c32a9a4bbf5b9";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(function (response) {
     console.log(response.data);
     celsiusTemperature = Math.round(response.data.temperature.current);
@@ -99,26 +99,4 @@ function handleSubmit(event) {
   let city = searchInput.value;
   searchCity(city);
 }
-
-function displayFahrenheit(event) {
-  event.preventDefault();
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-}
-
-function displayCelsius(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
-}
-
-let celsiusTemperature = null;
-
-let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click", displayFahrenheit);
-
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", displayCelsius);
-
 searchCity("Philadelphia");
